@@ -25,7 +25,7 @@ function faddItems() {
         alert("escibi el link del producto");
     } else {
         info.push( { name: productName.value, link: productLink.value, cantidad: finalAmount });
-        leDisplay.innerHTML += `<li class="list-group-item">${productName.value} | <a href="${productLink.value}" target="_blank">link</a> | ${finalAmount} <span>❌</span> </li>`;
+        leDisplay.innerHTML += `<li class="list-group-item d-flex justify-content-between"> <div class="ms-2 me-auto">${productName.value} | <a href="${productLink.value}" target="_blank">link</a> | ${finalAmount}</div> <span>❌</span> </li>`;
         productLink.value = "";
         productName.value = "";
         amount.value = "";
@@ -74,3 +74,8 @@ function fcreateFile() {
 
 }
 
+leDisplay.addEventListener('click', function(e){
+    if(e.target.tagName === 'SPAN') {
+        e.target.parentElement.remove();
+    }
+})
