@@ -9,7 +9,7 @@ let finalAmount = "1";
 let info = [];
 
 // buttons
-// const addItems = document.getElementById("add-items");
+const addItem = document.getElementById("add-items");
 const createFile = document.getElementById("create-file");
 
 // functions
@@ -24,7 +24,7 @@ function faddItems() {
     else if (productLink.value === '') {
         alert("escibi el link del producto");
     } else {
-        info.push( { name: productName.value, link: productLink.value, cantidad: finalAmount });
+        info.push( { name: productName.value, link: productLink.value, cantidad: finalAmount});
         leDisplay.innerHTML += `<li class="list-group-item d-flex justify-content-between"> <div class="ms-2 me-auto">${productName.value} | <a href="${productLink.value}" target="_blank">link</a> | ${finalAmount}</div> <span>❌</span> </li>`;
         productLink.value = "";
         productName.value = "";
@@ -71,11 +71,31 @@ function fcreateFile() {
 
     console.log(csvString);
     download(csvString);
-
 }
 
 leDisplay.addEventListener('click', function(e){
+
     if(e.target.tagName === 'SPAN') {
+        let leText = e.target.parentNode.innerText.split(" ")[0];
+        console.log(info[leText]);
+
+        for (let i = 0; i < info.length; i++) {
+            if (info[i]['name'] == leText) {
+                console.log(`el item ${leText} esta en la posicion ${i}`)
+                info.splice(i,1);
+            }
+        }
+        console.log(info)
+
         e.target.parentElement.remove();
+
     }
 })
+
+function trimInput(inputElement) {
+    inputElement.value = inputElement.value.trim();
+}
+
+productName.addEventListener('input', () => {
+    trimInput(productName);
+});
