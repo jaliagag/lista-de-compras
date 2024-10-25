@@ -3,10 +3,12 @@
 const productName = document.getElementById("productName");
 const productLink = document.getElementById("productLink");
 const amount = document.getElementById("amount");
+const price = document.getElementById("price");
 const leDisplay = document.getElementById("le-display");
 let finalAmount = "1";
 
 let info = [];
+let finalPrice = 0;
 
 // buttons
 const addItem = document.getElementById("add-items");
@@ -19,16 +21,19 @@ function faddItems() {
         finalAmount = amount.value;
     }
     if (productName.value === '') {
-        alert("escibi el nombre del producto");
+        alert("escibi el NOMBRE del producto");
     }
     else if (productLink.value === '') {
-        alert("escibi el link del producto");
+        alert("escibi el LINK del producto");
+    } else if (price.value === '') {
+        alert("escibi el PRECIO del producto");
     } else {
-        info.push( { name: productName.value, link: productLink.value, cantidad: finalAmount});
-        leDisplay.innerHTML += `<li class="list-group-item d-flex justify-content-between"> <div class="ms-2 me-auto">${productName.value} | <a href="${productLink.value}" target="_blank">link</a> | ${finalAmount}</div> <span>❌</span> </li>`;
+        info.push( { name: productName.value, link: productLink.value, cantidad: finalAmount, price: price.value });
+        leDisplay.innerHTML += `<li class="list-group-item d-flex justify-content-between"> <div class="ms-2 me-auto">${productName.value} | <a href="${productLink.value}" target="_blank">link</a> | ${finalAmount} | ${price.value}</div> <span>❌</span> </li>`;
         productLink.value = "";
         productName.value = "";
         amount.value = "";
+        price.value = "";
         finalAmount = "1";
     }
     console.log(info)
@@ -58,10 +63,12 @@ function fcreateFile() {
         [
             "nombre",
             "cantidad",
+            "precio",
             "link"
         ],
         ...info.map(item => [
             item.name,
+            item.cantidad,
             item.cantidad,
             item.link
         ])
@@ -88,10 +95,10 @@ leDisplay.addEventListener('click', function(e){
         console.log(info)
 
         e.target.parentElement.remove();
-
     }
 })
 
+// no spaces in nombre input
 function trimInput(inputElement) {
     inputElement.value = inputElement.value.trim();
 }
