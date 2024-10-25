@@ -5,6 +5,7 @@ const productLink = document.getElementById("productLink");
 const amount = document.getElementById("amount");
 const price = document.getElementById("price");
 const leDisplay = document.getElementById("le-display");
+const total = document.getElementById("total");
 let finalAmount = "1";
 
 let info = [];
@@ -30,13 +31,19 @@ function faddItems() {
     } else {
         info.push( { name: productName.value, link: productLink.value, cantidad: finalAmount, price: price.value });
         leDisplay.innerHTML += `<li class="list-group-item d-flex justify-content-between"> <div class="ms-2 me-auto">${productName.value} | <a href="${productLink.value}" target="_blank">link</a> | ${finalAmount} | ${price.value}</div> <span>❌</span> </li>`;
+        finalPrice += Number(price.value);
+
         productLink.value = "";
         productName.value = "";
         amount.value = "";
         price.value = "";
         finalAmount = "1";
+
     }
-    console.log(info)
+    console.log(info);
+    console.log('PRICE PRICE PRICE ' + finalPrice);
+    total.value = finalPrice;
+
 }
 
 // Function to download the CSV file
@@ -83,6 +90,12 @@ function fcreateFile() {
 leDisplay.addEventListener('click', function(e){
 
     if(e.target.tagName === 'SPAN') {
+        let lePrice = e.target.parentNode.innerText.split("\n")[0].split(" ");
+        let newPrice = finalPrice - Number(lePrice[lePrice.length -1]);
+        // let lastElement = arry[arry.length - 1];
+
+        console.log(lePrice[lePrice.length -1]);
+
         let leText = e.target.parentNode.innerText.split(" ")[0];
         console.log(info[leText]);
 
@@ -92,7 +105,9 @@ leDisplay.addEventListener('click', function(e){
                 info.splice(i,1);
             }
         }
-        console.log(info)
+        console.log(info);
+
+        total.value = newPrice;
 
         e.target.parentElement.remove();
     }
