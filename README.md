@@ -21,5 +21,3 @@
 - finalmente hacer clic en el boton azul `Generar archivo` - este nos generara un archivo que es el que debemos enviar
 
 ## TODO
-
-- precio total de la compra
