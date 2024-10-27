@@ -90,7 +90,7 @@ function fcreateFile() {
         ...info.map(item => [
             item.name,
             item.cantidad,
-            item.cantidad,
+            item.price,
             item.link
         ])
     ]
